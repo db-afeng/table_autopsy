@@ -1,0 +1,36 @@
+# This is a Databricks asset bundle definition for my_project.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: table_autopsy
+  uuid: 8ff212d6-a3d6-4158-aadf-1928d435f8b2
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    # The default target uses 'mode: development' to create a development copy.
+    # - Deployed resources get prefixed with '[dev my_user_name]'
+    # - Any job schedules and triggers are paused by default.
+    # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
+    mode: development
+    default: true
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com
+
+  azure:
+    mode: development
+    workspace:
+      host: https://adb-984752964297111.11.azuredatabricks.net
+
+  prod:
+    mode: production
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com
+      # We explicitly specify /Workspace/Users/alex.feng@databricks.com to make sure we only have a single copy.
+      root_path: /Workspace/Users/alex.feng@databricks.com/.bundle/${bundle.name}/${bundle.target}
+    permissions:
+      - user_name: alex.feng@databricks.com
+        level: CAN_MANAGE
+    run_as:
+      user_name: alex.feng@databricks.com

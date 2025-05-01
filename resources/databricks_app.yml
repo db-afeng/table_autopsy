@@ -1,0 +1,7 @@
+resources:
+  apps:
+    table-autopsy:
+      name: "table-autopsy"
+      source_code_path: "../src"
+      description: "Diagnose your broken table"
+
